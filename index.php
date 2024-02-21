@@ -1,5 +1,4 @@
-<?php 
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,9 +23,26 @@
                         <form method="GET" action="">
                             <div class="form-group">
                                 <label for="passwordLength">Password Length:</label>
-                                <input type="number" class="form-control" id="passwordLength" name="passwordLength" min="6" max="20" required>
+                                <input type="number" class="form-control" id="passwordLength" name="passwordLength" min="6" max="50" required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Generate Password</button>
+
+                            <?php 
+                                // Funzione per generare una password casuale
+                                function generateRandomPassword($length) {
+                                    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=-';
+                                    return substr(str_shuffle($characters), 0, $length);
+                                }
+
+                                // Verifica se la richiesta GET contiene la lunghezza della password
+                                if (isset($_GET['passwordLength'])) {
+                                     $passwordLength = intval($_GET['passwordLength']);
+                                    $generatedPassword = generateRandomPassword($passwordLength);
+                                    echo '<div class="alert alert-success mt-3" role="alert">';
+                                    echo 'Generated Password: ' . $generatedPassword;
+                                    echo '</div>';
+                                }
+                            ?>
                         </form>
                     </div>
                 </div>
